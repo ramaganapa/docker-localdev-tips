@@ -1,0 +1,2 @@
+#!/bin/sh
+echo '-v $(pwd)/.bash_history:/tmp/.bash_history'
