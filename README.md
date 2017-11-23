@@ -14,10 +14,18 @@ The  easiest way to use is clone the repo and `CD` to the directory for you  pro
 
 If you have you own scritps and images and facing issues due to virtualiztion concepts added for production purposes. You may look at the FAQ below. Maybe you will find a way to solve it.
 
+### What this project is not?
+As much as possible POSIX shell compatabiliyt is expected to maintain. But, not striclty enforced. For all practical purposes it is expected that every developer is using at least BASH. I personally use zsh so I am confident it will work in  zsh as well.
+
+Recommendations are welcome in suggesting how to make sure scripts work in all of 
+* bash  
+* zsh
+* fish
+
 ### Issue due to User virtualization
 * Files that are created in the docker images are not accessible to non root user on host OS.  
   when you  run docker image as `docker run <image>` docker creates a new user namespace. To give isolation in users from host OS. As a result docker has to create a new root user and execut the script  specified in entrypoint/CMD or whatever is passed in arguments. If you have read the docker best practices it mentions about creating a user with lower privileges. That may or maynot fix this isuse depending on how many users you have on host OS.
-  
+   
   Better way to fix it is everytime you run container create a user with same UID and GUID as the crrent user on host OS and switch to him
   `docker run -it <image_id> bash -c "groupadd -g $(id -g) $(id -gn); useradd -ms /bin/bash -u $(id -u) -g $(id -g) ${USER}; su - ${USER};"`
 
