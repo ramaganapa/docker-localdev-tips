@@ -1,2 +1,6 @@
 #!/bin/sh
-echo '-v $(pwd)/.bash_history:/tmp/.bash_history'
+if [ ! -f .bash_history ]; then
+  touch .bash_history
+fi
+
+echo "-v ${PWD}/.bash_history:/tmp/.bash_history"

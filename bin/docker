@@ -1,0 +1,24 @@
+#!/bin/sh
+
+if [[ $1 == '--is-script' ]]; then
+  exit 0;
+fi
+
+docker_paths=$(which -a docker)
+
+for p in ${docker_paths}; do
+  eval "${p} --is-script" &> /dev/null || {
+    COMMAND='';
+    CUR_DIR=$(dirname $(readlink -f ${BASH_SOURCE}))
+    BASE_DIR="${CUR_DIR}/.."
+
+    if [[ ${1} = 'run' ]]; then
+      for flag in  ${FLAGS}; do
+        COMMAND="${COMMAND} $(sh ${BASE_DIR}/flags/${flag})";
+      done
+    fi
+
+    eval "${p} run ${COMMAND} ${@:2}"
+    exit 0;
+  }
+done

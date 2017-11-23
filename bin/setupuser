@@ -1,0 +1,7 @@
+#!/bin/sh
+
+init_file="init.sh"
+
+echo "groupadd -g $(id -g) $(id -gn); useradd -ms /bin/bash -u $(id -u) -g $(id -g) -p ${USER} ${USER}; [ -f /tmp/.bash_history ] && ln -s /tmp/.bash_history /home/${USER}; su - ${USER};" > ${init_file}
+
+echo "chmod +x /tmp/${init_file}; /tmp/${init_file}"

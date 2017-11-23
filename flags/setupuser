@@ -1,0 +1,3 @@
+#!/bin/sh
+
+echo " -v ${PWD}/init.sh:/tmp/init.sh"

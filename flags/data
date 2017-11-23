@@ -1,2 +1,6 @@
 #!/bin/sh
-echo '-v $(pwd)/data:/data'
+if [ ! -d data ]; then
+  mkdir data;
+fi
+
+echo " -v ${PWD}/data:/data"
