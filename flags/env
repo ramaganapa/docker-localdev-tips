@@ -1,2 +1,8 @@
 #!/bin/sh
+
+# In developer mode we need to create a new user with same user id as group id as the user on host machine.
+# And swithch  to the user. Which causes issues like environment variables being not set.
+# And losing init command.
+# So, create an init script to be called for the user when "su - ${USER} is called
+
 echo '-v $(pwd)/env.sh:/etc/profile.d/env.sh'
