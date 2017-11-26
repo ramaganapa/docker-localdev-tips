@@ -14,6 +14,11 @@ The  easiest way to use is clone the repo and `CD` to the directory for you  pro
 
 If you have you own scritps and images and facing issues due to virtualiztion concepts added for production purposes. You may look at the FAQ below. Maybe you will find a way to solve it.
 
+### How to add a new language/tool directory?
+Create a new folder with name identifiable to the tool. And create run.sh. To be able to use flags source .rc in repo home and set the flags(file names) in environment variable FLAGS.
+
+For example with detailed explanation of steps look at go/bin.sh. For more complicated example where image needs to be built from a Dockerfile look at java/bin.sh
+
 ### What this project is not?
 As much as possible POSIX shell compatabiliyt is expected to maintain. But, not striclty enforced. For all practical purposes it is expected that every developer is using at least BASH. I personally use zsh so I am confident it will work in  zsh as well.
 
@@ -28,5 +33,8 @@ Recommendations are welcome in suggesting how to make sure scripts work in all o
    
   Better way to fix it is everytime you run container create a user with same UID and GUID as the crrent user on host OS and switch to him
   `docker run -it <image_id> bash -c "groupadd -g $(id -g) $(id -gn); useradd -ms /bin/bash -u $(id -u) -g $(id -g) ${USER}; su - ${USER};"`
+  
+* How to share bash_history between container runs  
+  Because we run the containers using "--rm" flag and encorage immutable containers. We loose bash history sharing across the runs. File `flags/bash_history` fixes this issue by volume mounting .bash_history file on to the container everytime it is run 
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
